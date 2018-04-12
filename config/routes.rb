@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
+  resources :student_details do
+    member do
+      get :save_test
+    end
+  end
   get 'email_settings/new'
 
   get 'bulk_sms_settings/new'
@@ -88,6 +93,18 @@ end
     get :general_report, :select_center, :reference_report, :select_employee, :university_report, :select_university, :course_report, :select_course
     end
   end 
+  resources :questions do
+  member do
+    get :question
+  
+  end
+end
+    resources :otp_verifications do
+      collection do
+      get :new1
+      end
+    end
+
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

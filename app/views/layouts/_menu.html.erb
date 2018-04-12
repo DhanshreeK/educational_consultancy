@@ -64,6 +64,7 @@
 					
 					<li><a href="/envelopes"><span class="title">Envelope Creation</span></a></li>
 					<li><a href="/receipts/receipt_creation"><span class="title">Generate Receipt</span></a></li>
+					<li><a href="/questions/new"><span class="title">Add Questions</span></a></li>
 
 					<%elsif current_user.role == 'SuperAdmin'%>
 					<li><a href="/general_settings/new"><span class="title">General Setting</span></a></li>
@@ -166,4 +167,7 @@
 
 <!--ChartJs-->
 <script src="/assets/plugins/chartjs/Chart.min.js"></script>
+<script src="/assets/nested_form.js"></script>
+
+
 </html>
