@@ -12,4 +12,3 @@ Regards,
 Vishwa Education
 7030306611')
 user = User.create!(:email => 'edu@admin.in', :password => '123456789', :password_confirmation => '123456789', general_setting_id: gs.id, role: 'SuperAdmin',sms_setting_id: sms.id, email_setting_id: email.id)
-user = User.create!(:email => 'student_enquiry@user.in', :password => 'enquiry@12345', :password_confirmation => 'enquiry@12345', role: 'Enquiry')

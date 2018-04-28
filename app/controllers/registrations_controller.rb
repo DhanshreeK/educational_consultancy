@@ -4,7 +4,6 @@ class RegistrationsController < Devise::RegistrationsController
   def create
     super
     @user.create_general_setting
-    @user.update(role: 'Student')
     # UserNotifierMailer.send_signup_email(@user).deliver
   end
 

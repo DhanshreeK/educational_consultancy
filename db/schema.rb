@@ -10,18 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180427110138) do
+ActiveRecord::Schema.define(version: 20180202122029) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "answers", force: :cascade do |t|
-    t.string "answer"
-    t.bigint "question_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["question_id"], name: "index_answers_on_question_id"
-  end
 
   create_table "bulk_sms_settings", force: :cascade do |t|
     t.string "send_sms"
@@ -60,15 +52,6 @@ ActiveRecord::Schema.define(version: 20180427110138) do
     t.integer "sms_setting_id"
     t.bigint "email_setting_id"
     t.index ["email_setting_id"], name: "index_centers_on_email_setting_id"
-  end
-
-  create_table "comments", force: :cascade do |t|
-    t.text "body"
-    t.bigint "student_detail_id"
-    t.datetime "stoptime"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["student_detail_id"], name: "index_comments_on_student_detail_id"
   end
 
   create_table "course_types", force: :cascade do |t|
@@ -181,14 +164,6 @@ ActiveRecord::Schema.define(version: 20180427110138) do
     t.index ["student_id"], name: "index_pending_payments_on_student_id"
   end
 
-  create_table "questions", force: :cascade do |t|
-    t.string "question"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.bigint "student_detail_id"
-    t.index ["student_detail_id"], name: "index_questions_on_student_detail_id"
-  end
-
   create_table "receipts", force: :cascade do |t|
     t.string "gst_no"
     t.string "date"
@@ -242,42 +217,6 @@ ActiveRecord::Schema.define(version: 20180427110138) do
     t.string "contact"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "student_answers", force: :cascade do |t|
-    t.bigint "student_detail_id"
-    t.bigint "question_id"
-    t.bigint "answer_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["answer_id"], name: "index_student_answers_on_answer_id"
-    t.index ["question_id"], name: "index_student_answers_on_question_id"
-    t.index ["student_detail_id"], name: "index_student_answers_on_student_detail_id"
-  end
-
-  create_table "student_details", force: :cascade do |t|
-    t.string "first_name"
-    t.string "middle_name"
-    t.string "last_name"
-    t.string "email"
-    t.text "address"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "contact_no"
-    t.string "course_applied_for"
-    t.string "age"
-    t.date "birthdate"
-    t.string "father_name"
-    t.string "mother_name"
-    t.string "father_education"
-    t.string "father_occupation"
-    t.string "mother_education"
-    t.string "ssc_marks"
-    t.string "hsc_marks"
-    t.string "pcb"
-    t.string "pcm"
-    t.text "signature"
-    t.time "stoptime"
   end
 
   create_table "students", force: :cascade do |t|
@@ -411,9 +350,7 @@ ActiveRecord::Schema.define(version: 20180427110138) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "answers", "questions"
   add_foreign_key "centers", "email_settings"
-  add_foreign_key "comments", "student_details"
   add_foreign_key "courses", "course_types"
   add_foreign_key "courses", "universities"
   add_foreign_key "email_settings", "centers"
@@ -427,12 +364,8 @@ ActiveRecord::Schema.define(version: 20180427110138) do
   add_foreign_key "envelopes", "students"
   add_foreign_key "pending_payments", "receipts"
   add_foreign_key "pending_payments", "students"
-  add_foreign_key "questions", "student_details"
   add_foreign_key "receipts", "centers"
   add_foreign_key "receipts", "students"
-  add_foreign_key "student_answers", "answers"
-  add_foreign_key "student_answers", "questions"
-  add_foreign_key "student_answers", "student_details"
   add_foreign_key "students", "caste_categories"
   add_foreign_key "students", "centers"
   add_foreign_key "students", "course_types"
