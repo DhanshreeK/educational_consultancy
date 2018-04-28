@@ -25,9 +25,6 @@ gem 'jquery-datatables-rails'
 gem 'roo-xls'
 gem 'ajax-datatables-rails'
 gem 'figaro'
-gem "nested_form"
-
-gem "jquery-rails"
 # this will convert total amount to words
 gem 'to_words'
 # Use postgresql as the database for Active Record
@@ -47,8 +44,6 @@ gem 'coffee-rails', '~> 4.2'
 gem 'turbolinks', '~> 5'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.5'
-
-
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 3.0'
 # Use ActiveModel has_secure_password
@@ -67,8 +62,6 @@ group :development, :test do
 end
 
 group :development do
-
-  gem 'rails-erd'
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
   gem 'web-console', '>= 3.3.0'
   gem 'listen', '>= 3.0.5', '< 3.2'
