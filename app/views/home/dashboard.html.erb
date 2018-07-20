@@ -103,11 +103,11 @@
 <% end -%>	
 <% if current_user.role == "SuperAdmin" %>
 <div class="col-xs-6">
-	<h3>Total Students</h3>
+	<!-- <h3>Total Students</h3>
+ -->
 
-
-<%= column_chart @centers.all.map{|c|{center_name: c.center_name , data: c.students.group(:admission_year).count}} %>
-<%= column_chart StudentDetail.group(:country_id).count %>
+<%#= column_chart @centers.all.map{|c|{center_name: c.center_name , data: c.students.group(:admission_year).count}} %>
+<%#= column_chart StudentDetail.group(:country_id).count %>
 
 
 

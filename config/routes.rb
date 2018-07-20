@@ -138,7 +138,11 @@ end
   resources :reports do 
     collection do 
     get :general_report, :select_center, :reference_report, :select_employee, :university_report, :select_university, :course_report, :select_course, :payment_status
-    get :export
+    get :export_payment_status
+    get :export_center
+    get :export_daily
+    get :export_university
+    get :export_course_report
     end
   end 
   resources :questions do

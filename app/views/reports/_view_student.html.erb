@@ -1,5 +1,9 @@
 <font color="green"> <b>Total registration Count For this Center is </b></font> <%=@center_students.count%> 
  <div class="table-responsive">
+   Download Report:
+          <%#= link_to "CSV", student_s_home_url(format: "csv") %> 
+          <%= link_to "Excel File", export_center_reports_path(format: "xlsx" ,center_id: params[:center_id])  , class: "btn btn-success",id: "idExcel" %>
+        </p>
           <table class="table table-striped table-bordered table-hover dataTables-example" >
             <thead>
               <tr>
@@ -26,8 +30,4 @@
           </tbody>
         </table>
       </div>
-      <p>
-          Download Report:
-          <%#= link_to "CSV", student_s_home_url(format: "csv") %> |
-          <%= link_to "Excel File", centers_url(format: "xls")  , class: "btn btn-success" %>
-        </p>
+     

@@ -21,7 +21,8 @@
           Download Report:
           <%#= link_to "CSV", student_s_home_url(format: "csv") %> |
           <%#= link_to "Excel File", payment_status_reports_url(format: "xls") , class: "btn btn-success" %>
-          <%=link_to("Export Database to Excel",reports_url+"/export" , class: "btn btn-success")  %>
+          <%=link_to "Export Database to Excel",export_payment_status_reports_path(format: "xlsx") , class: "btn btn-success"  %>
+                <%#= link_to "Excel", export_return_reports_path(start_date: @start_date,end_date: @end_date ,format: "xlsx"), class: 'btn btn-success' %>
 
         </p>
 
@@ -45,8 +46,8 @@
               <td><%=p.student.enrollment%></td>
               <td><%=p.student.created_at.to_date.strftime("%d/%m/%Y") %></td>
               <td><%=p.student.first_name+ " "+p.student.last_name if p.student.present? %></td>
-              <td><%=p.fees_pending%></td>
               <td><%=p.fees_paid%></td>
+              <td><%=p.fees_pending%></td>
               <td><%=p.student.center.center_name%></td>
                <td><%if p.payment_status == "true"%>
                 <font color="green">Fees Paid</font>

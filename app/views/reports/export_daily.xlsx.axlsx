@@ -1,0 +1,19 @@
+wb = xlsx_package.workbook
+
+wb.add_worksheet(name: "InwardsProducts") do |sheet|
+  # this is the head row of your spreadsheet
+  sheet.add_row %w(Enrollment First\ Name Course Center University)
+  @results.each do |r|
+  if r.created_at.between?(@start_date , @end_date)
+  @name = r.first_name+"-"+r.last_name 
+      sheet.add_row ["#{r.enrollment}","#{@name}" ,"#{r.course.course_name}" , "#{r.center.center_name}" , "#{r.university.university_name}"]
+          end
+          end
+          end
+
+
+          
+
+
+
+           

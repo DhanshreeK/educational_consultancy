@@ -12,6 +12,8 @@ class ReportsController < ApplicationController
 
 	def select_center
 		@center = Center.load(params[:center_id])
+
+		@center_name = @center.center_name
 		@center_students = @center.students
 		@student_count = @center.students.count
 	end
@@ -43,26 +45,98 @@ class ReportsController < ApplicationController
 	end
 
 
-  	def export
+  	def export_payment_status
+  			if current_user.role == "Center"
 
+			@pending_payments = PendingPayment.where(center_id: current_user.center_id)
+		
+			else
   			@pending_payments = PendingPayment.all
-  			book = Spreadsheet::Workbook.new
-    		sheet1 = book.create_worksheet :name => 'Sheet1'
-    		 sheet1.row(0).push "ENROLLMENT NO","DATE(DD/MM/YY)","STUDENT NAME" , "FEES" ,"PENDING FEES","OFFICE CENTER","STATUS OF FEES" 
-    		
+  			end
+  			respond_to do |format|
+				format.xlsx {
+ 						 		response.headers['Content-Disposition'] = 'attachment;' "filename= Payment_Status_Report\"#{Date.today}\".xlsx"
+							}
+			end
+	end
+  			
+    
 
-    		@pending_payments.each_with_index do |r,i|
-     			@i = i += 1
-     			sheet1.insert_row(sheet1.last_row_index + 1 ,["#{@i}" ,"#{r.student.enrollment}" , "#{r.student.created_at.to_date.strftime("%d/%m/%Y")}","#{r.student.first_name+" "+r.student.last_name}" ,"#{r.fees_pending}" ,"#{r.fees_paid}" , "#{r.student.center.center_name}" , "#{r.payment_status}"])
-     		 	
-     		 	
-      		end
-      		 spreadsheet = StringIO.new
-     		 	book.write spreadsheet
-      		file = "Excelsheet"
-      			send_data spreadsheet.string, :filename => "#{file}", :type =>  "application/vnd.ms-excel"
+
+
+    def export_center
+    	if current_user.role == "Center"
+
+    		@center_students = Student.where(center_id: @current_user.center_id)
+    		@center_name = @current_user.center.center_name
+    	else
+    	@center_id = params[:center_id]
+
+    	
+    	@center_students = Student.where(center_id: @center_id)
+
+    	@center_name = Center.find(@center_id).center_name
     end
 
+    	respond_to do |format|
+			format.xlsx {
+ 							 response.headers['Content-Disposition'] = 'attachment;' "filename= Center_Student_Report(\"#{@center_name}\")\"#{Date.today}\".xlsx"
+						}
+		end
+	end
+	
+
+
+	def export_university
+		@university = University.load(params[:university_id])
+		@university_students = @university.students
+		if current_user.role == "Center"
+			@university_students = @university.students.where(center_id: current_user.center_id)
+		end
+
+		respond_to do |format|
+			format.xlsx {
+ 							 response.headers['Content-Disposition'] = 'attachment;' "filename= University_Student_Report\"#{Date.today}\".xlsx"
+						}
+		end
+	end
+
+	def export_course_report
+		@course = Course.load(params[:course_id])
+
+		@course_students = @course.students
+		if current_user.role == "Center"
+			@course_students = @course.students.where(center_id: current_user.center_id)
+		end
+		respond_to do |format|
+			format.xlsx {
+ 							 response.headers['Content-Disposition'] = 'attachment;' "filename= Course_Student_Report\"#{Date.today}\".xlsx"
+						}
+		end
+
+	end
+    	
+    	
+    	
+   
+
+    def export_daily
+    	
+    	@start_date = params[:start_date]
+    	
+    	@end_date = params[:end_date]
+    	if current_user.role == "Center"
+		@results = Student.where(center_id: current_user.center_id)
+		else
+    	@results = Student.all
+    	end
+    	respond_to do |format|
+				format.xlsx {
+ 					 response.headers['Content-Disposition'] = 'attachment;' "filename= Student_Daily_Report\"#{Date.today}\".xlsx"
+							}
+		end
+
+    end
 	def reference_report
 		@general_setting = GeneralSetting.first
 	end

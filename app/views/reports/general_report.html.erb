@@ -34,8 +34,8 @@
      <div class="form-group">
         <div class="col-md-4">
           <label class="col-sm-6 control-label">Center Select</label>
-    <%= form.select :center_id, Center.all.collect{|c| [c.center_name,c.id]}, {prompt:true},id: 'center_id',class: "form-control selectpicker", "data-live-search" => "true" 
- %>
+    <%= form.select :center_id, Center.all.collect{|c| [c.center_name,c.id]}, {prompt:true},id: 'center_id',class: "form-control selectpicker", "data-live-search" => "true" %> 
+
     </div>
   </div>
 </div>
@@ -64,13 +64,16 @@
 </div>
 </div>
 </div>
+ <p>
+         
 
 <script type='text/javascript'>
 $('#center_id').on('change', function() {
  var center_id;
  Item = $(this).val();
+
  $.ajax({
-   url: '/reports/select_center',
+   url: "/reports/select_center",
    type: 'GET',
    dataType: 'script',
    data: {center_id: Item},
@@ -79,3 +82,12 @@ $('#center_id').on('change', function() {
  });
 });
 </script>
+
+
+
+
+
+
+ 
+ 
+ 

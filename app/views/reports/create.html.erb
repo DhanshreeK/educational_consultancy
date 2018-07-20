@@ -27,7 +27,7 @@
                           <p>
           Download Report:
           <%#= link_to "CSV", student_s_home_url(format: "csv") %> |
-          <%= link_to "Excel File",reports_url(format: "xls") , class: "btn btn-success" %>
+          <%= link_to "Excel File",export_daily_reports_path(start_date: @start_date,end_date: @end_date ,format: "xlsx") , class: "btn btn-success" %>
         </p>
  
  <div class="table-responsive">
@@ -38,7 +38,7 @@
               <th>First name</th>
               <th>Course</th>
               <th>Center</th>
-              <th></th>
+              <th>University</th>
               <th></th>
              </tr>
            </thead>
@@ -46,10 +46,12 @@
           <% @results.each_with_index do |r, i| %>
              <% if r.created_at.between?(params[:report][:start_date].to_date,params[:report][:end_date].to_date)%>
             <tr class="gradeX">
+              <td><%= r.enrollment %></td>
             <td><%= r.first_name+"-"+r.last_name%></td>
-            <td><%= r.university.university_name%></td>
             <td><%= r.course.course_name %></td>
-            <td><%= r.enrollment %></td>
+            <td><%= r.center.center_name %></td>
+            <td><%= r.university.university_name%></td>
+            
             <td><%= link_to 'View Profile', student_path(r), class: 'btn btn-link'%></td>
             </tr>
            <%end%>

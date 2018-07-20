@@ -1,0 +1,21 @@
+wb = xlsx_package.workbook
+
+wb.add_worksheet(name: "InwardsProducts") do |sheet|
+  # this is the head row of your spreadsheet
+  sheet.add_row %w(Enrollment\ No Date(DD/MM/YY) STUDENT\ NAME FEES PENDING\ FEES OFFICE\ CENTER STATUS\ OF\ FEES)
+  @pending_payments.each do |r|
+  @name = r.student.first_name+" "+r.student.last_name if r.student.present?
+      if r.payment_status == "true"
+      @status = "Paid"
+      else
+      @status = "Pending"
+      end   
+  sheet.add_row ["#{r.student.enrollment}","#{r.student.created_at.to_date.strftime("%d/%m/%Y")}", "#{@name}","#{r.fees_paid}","#{r.fees_pending}" ,"#{r.student.center.center_name}", "#{@status}"]
+          end
+          end
+
+
+
+
+
+           

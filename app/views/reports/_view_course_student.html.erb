@@ -1,5 +1,10 @@
 <font color="green"> <b>Total Students applied for this course </b></font> <%=@course_students.count%> 
+ 
  <div class="table-responsive">
+  Download Report:
+          <%#= link_to "CSV", student_s_home_url(format: "csv") %> 
+          <%= link_to "Excel File", export_course_report_reports_path(format: "xlsx" ,course_id: params[:course_id])  , class: "btn btn-success",id: "idExcel" %>
+        </p>
           <table class="table table-striped table-bordered table-hover dataTables-example" >
             <thead>
               <tr>
